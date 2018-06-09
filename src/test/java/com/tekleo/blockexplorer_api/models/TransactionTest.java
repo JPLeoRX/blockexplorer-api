@@ -62,7 +62,7 @@ public class TransactionTest {
         assertEquals(1, transaction.getOutputs().size());
         assertEquals("0000000000000000027d0985fef71cbc05a5ee5cdbdc4c6baf2307e6c5db8591", transaction.getBlockHash());
         assertEquals(371622, transaction.getBlockHeight());
-        assertTrue(155093 < transaction.getNumberOfConfirmations());
+        assertEquals(155093, transaction.getNumberOfConfirmations());
         assertEquals(1440604784, transaction.getTime());
         assertEquals(1440604784, transaction.getBlockTime());
         assertTrue(transaction.isCoinBase());
