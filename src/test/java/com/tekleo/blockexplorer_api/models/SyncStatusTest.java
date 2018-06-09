@@ -1,4 +1,4 @@
-package com.tekleo.blockexplorer_api.model;
+package com.tekleo.blockexplorer_api.models;
 
 import org.junit.Test;
 
