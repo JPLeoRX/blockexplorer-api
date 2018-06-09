@@ -53,7 +53,7 @@ public class BlockTest {
         assertEquals("181443c4", block.getBits());
         assertEquals(54256630327.88996, block.getDifficulty(), DELTA);
         assertEquals("0000000000000000000000000000000000000000000998b7adec271cd0ea7258", block.getChainWork());
-        assertEquals(155082, block.getConfirmations());
+        assertTrue(155082 < block.getConfirmations());
         assertEquals("0000000000000000027d0985fef71cbc05a5ee5cdbdc4c6baf2307e6c5db8591", block.getPreviousBlockHash());
         assertEquals("000000000000000013677449d7375ed22f9c66a94940328081412179795a1ac5", block.getNextBlockHash());
         assertEquals(25, block.getReward(), DELTA);
