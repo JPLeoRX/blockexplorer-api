@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public class GetTransactionRequest implements BlockExplorerRequest, GetRequest {
-    private String hash;
+    private String transactionId;
 
-    public GetTransactionRequest(String hash) {
-        this.hash = hash;
+    public GetTransactionRequest(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class GetTransactionRequest implements BlockExplorerRequest, GetRequest {
 
     @Override
     public List<String> getArguments() {
-        return Collections.singletonList(hash);
+        return Collections.singletonList(transactionId);
     }
 
     @Override
