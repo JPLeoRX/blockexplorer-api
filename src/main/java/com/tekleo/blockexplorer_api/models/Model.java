@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author Leo Ertuna
  * @since 09.06.2018 13:31
  */
-interface Model extends Serializable {
+public interface Model extends Serializable {
     public static final GsonBuilder GSON_BUILDER = new GsonBuilder();
     public static final Gson GSON = GSON_BUILDER.create();
 }
