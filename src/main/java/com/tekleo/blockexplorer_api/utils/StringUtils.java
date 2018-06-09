@@ -1,8 +1,9 @@
 package com.tekleo.blockexplorer_api.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Small helper methods to operate on {@link String}
@@ -18,26 +19,22 @@ public class StringUtils {
      * @return joined string
      */
     public static String join(List<String> words, String deliminator) {
-        // If the list exists and it's not empty
-        if (words != null && !words.isEmpty()) {
-            // Create new string
-            String joined = "";
+        // Create new string builder
+        StringBuilder joinedWordsBuilder = new StringBuilder();
 
-            // Join words in it with added deliminator
-            for (String word : words)
-                joined += word + deliminator;
+        // For each word - add deliminator to it and append to the string builder
+        IntStream.range(0, words.size()).forEach(index -> {
+            // If this is the last word - don't add deliminator
+            if (index == words.size() - 1)
+                joinedWordsBuilder.append(words.get(index));
 
-            // Remove the last deliminator
-            joined = joined.substring(0, joined.length() - deliminator.length());
+            // If this is just a regular word - add deliminator
+            else
+                joinedWordsBuilder.append(words.get(index)).append(deliminator);
+        });
 
-            // Return resulting string
-            return joined;
-        }
-
-        // If there's something wrong with the list - throw an exception
-        else {
-            throw new IllegalArgumentException("List is null or empty");
-        }
+        // Extract resulting string
+        return joinedWordsBuilder.toString();
     }
 
     /**
@@ -47,16 +44,8 @@ public class StringUtils {
      * @return list
      */
     public static List<String> toList(Map<String, String> map, String keyValueDeliminator) {
-        // Create new list
-        List<String> list = new ArrayList<>();
-
-        // For each entry in the map
-        for (Map.Entry<String, String> entry : map.entrySet())
-            // Add key-value pair into the list with given deliminator
-            list.add(entry.getKey() + keyValueDeliminator + entry.getValue());
-
-        // Return resulting list
-        return list;
+        // Convert each entry to a joined word
+        return map.entrySet().parallelStream().map(entry -> entry.getKey() + keyValueDeliminator + entry.getValue()).collect(Collectors.toList());
     }
 
     /**
