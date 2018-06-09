@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  * @author Leo Ertuna
  * @since 27.01.2018 20:20
  */
-public class StringUtils {
+public class StringUtils extends Utils {
     /**
      * Join several strings in one
      * @param words strings to be joined
@@ -19,6 +19,9 @@ public class StringUtils {
      * @return joined string
      */
     public static String join(List<String> words, String deliminator) {
+        // Check for null
+        checkForNull(words, deliminator);
+
         // Create new string builder
         StringBuilder joinedWordsBuilder = new StringBuilder();
 
@@ -44,6 +47,9 @@ public class StringUtils {
      * @return list
      */
     public static List<String> toList(Map<String, String> map, String keyValueDeliminator) {
+        // Check for null
+        checkForNull(map, keyValueDeliminator);
+
         // Convert each entry to a joined word
         return map.entrySet().parallelStream().map(entry -> entry.getKey() + keyValueDeliminator + entry.getValue()).collect(Collectors.toList());
     }
