@@ -2,6 +2,7 @@ package com.tekleo.blockexplorer_api.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Small helper methods to operate on {@link Map}
@@ -9,7 +10,7 @@ import java.util.Map;
  * @author Leo Ertuna
  * @since 25.01.2018 00:17
  */
-public class MapUtils {
+public class MapUtils extends Utils {
     /**
      * Create a map from just one key-value pair
      * @param key key
@@ -19,13 +20,12 @@ public class MapUtils {
      * @return new map
      */
     public static <K, V> Map<K, V> fromOne(K key, V value) {
+        // Check for null
+        checkForNull(key, value);
+
         // Create new map
         HashMap<K, V> map = new HashMap<>();
-
-        // If both key and value exist
-        if (key != null && value != null)
-            map.put(key, value);
-
+        map.put(key, value);
         return map;
     }
 
@@ -40,17 +40,13 @@ public class MapUtils {
      * @return new map
      */
     public static <K, V> Map<K, V> fromTwo(K key1, V value1, K key2, V value2) {
+        // Check for null
+        checkForNull(key1, value1, key2, value2);
+
         // Create new map
         HashMap<K, V> map = new HashMap<>();
-
-        // 1st) If both key and value exist
-        if (value1 != null)
-            map.put(key1, value1);
-
-        // 2nd) If both key and value exist
-        if (value2 != null)
-            map.put(key2, value2);
-
+        map.put(key1, value1);
+        map.put(key2, value2);
         return map;
     }
 
@@ -62,14 +58,10 @@ public class MapUtils {
      * @return map of strings
      */
     public static <K, V> Map<String, String> toString(Map<K, V> map) {
-        // Create new map
-        Map<String, String> strMap = new HashMap<>();
+        // Check for null
+        checkForNull(map);
 
-        // For each existing entry
-        for (Map.Entry<K, V> entry : map.entrySet())
-            // Add new entry with converted key-value
-            strMap.put(entry.getKey().toString(), entry.getValue().toString());
-
-        return strMap;
+        // Convert each key=value pair from objects to strings
+        return map.entrySet().parallelStream().collect(Collectors.toMap(String::valueOf, String::valueOf));
     }
 }
