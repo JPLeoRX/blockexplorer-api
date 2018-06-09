@@ -1,5 +1,6 @@
 package com.tekleo.blockexplorer_api.requests;
 
+import com.tekleo.blockexplorer_api.BlockExplorerApiConfig;
 import com.tekleo.blockexplorer_api.http_client.Request;
 
 /**
@@ -8,6 +9,11 @@ import com.tekleo.blockexplorer_api.http_client.Request;
 public interface BlockExplorerRequest extends Request {
     @Override
     default String getBase() {
-        return "https://blockexplorer.com";
+        if (BlockExplorerApiConfig.getInstance().getNetwork() == BlockExplorerApiConfig.Network.LIVE)
+            return "https://blockexplorer.com";
+        else if (BlockExplorerApiConfig.getInstance().getNetwork() == BlockExplorerApiConfig.Network.TEST)
+            return "https://testnet.blockexplorer.com";
+        else
+            throw new IllegalArgumentException();
     }
 }
